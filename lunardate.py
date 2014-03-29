@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # encoding: utf-8
 '''
 Just like solar calendar , there is leap year,
@@ -166,17 +167,17 @@ def lastdate_of_month(year,month):
 # Basic Lunar Date
 ###############
 
-LUNAR_NAME = '农历'
-YEAR = '年'
-MONTH = '月'
-DAY = '日'
-DAYS = '天'
-LEAP  = '闰'
-MONTH_NAMES = '正二三四五六七八九十冬腊'
-MONTH_TYPES = '小大'
-NUMBERS = '一二三四五六七八九十'
-TEN_DAYS = '初十廿三'
-ANIMALS = "鼠牛虎兔龙蛇马羊猴鸡狗猪"
+LUNAR_NAME = u'农历'
+YEAR = u'年'
+MONTH = u'月'
+DAY = u'日'
+DAYS = u'天'
+LEAP  = u'闰'
+MONTH_NAMES = u'正二三四五六七八九十冬腊'
+MONTH_TYPES = u'小大'
+NUMBERS = u'一二三四五六七八九十'
+TEN_DAYS = u'初十廿三'
+ANIMALS = u"鼠牛虎兔龙蛇马羊猴鸡狗猪"
 
 def format_year(n):
     return str(n)+YEAR
@@ -189,7 +190,7 @@ def format_day(n):
         return TEN_DAYS[:2]
     elif n == 20:
         return NUMBERS[1] + NUMBERS[-1]
-    return TEN_DAYS[n//10] + NUMBERS[(n%10-1)%10]
+    return TEN_DAYS[n//10] + NUMBERS[(n%10-1)%10] + DAY
 
 def show_year_info(year=None):
     'show lunar year data info, to help check LUNAR_DATA right'
@@ -243,7 +244,7 @@ class BasicLunarDate(object):
         return self.day < oth.day
     
     def __str__(self):
-        return ''.join([format_year(self.year),
+        return LUNAR_NAME+''.join([format_year(self.year),
                     format_month(self.month,self.leap),
                     format_day(self.day) ] )
         
@@ -395,6 +396,10 @@ class LunarDate(BasicLunarDate):
     @staticmethod
     def fromsolar(solar):
         return LunarDate( solartolunar(solar) )
+    
+    @staticmethod
+    def today():
+        return LunarDate.fromsolar( date.today() )
     
     def tosolar(self):
         return lunartosolar(self)
