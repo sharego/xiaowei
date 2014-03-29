@@ -176,6 +176,7 @@ MONTH_NAMES = '正二三四五六七八九十冬腊'
 MONTH_TYPES = '小大'
 NUMBERS = '一二三四五六七八九十'
 TEN_DAYS = '初十廿三'
+ANIMALS = "鼠牛虎兔龙蛇马羊猴鸡狗猪"
 
 def format_year(n):
     return str(n)+YEAR
@@ -196,7 +197,8 @@ def show_year_info(year=None):
         v = LUNAR_DATA[i]
         year = i + LUNAR_DATA_START_YEAE
         days = DAYS_OF_YEAR[year]
-        s =  '%s%s%s %d%s: ' % (LUNAR_NAME, year, YEAR, days , DAYS )
+        animal = ANIMALS[(year - 1900 ) % 12]
+        s =  '%s%s%s(%s) %d%s: ' % (LUNAR_NAME, year, YEAR, animal, days , DAYS )
         months = []
         for i in range(12):
             name = MONTH_NAMES[i]
@@ -404,6 +406,10 @@ class LunarDate(BasicLunarDate):
         'x+y, timedelta'
         solar = self.tosolar() + delta
         return LunarDate.fromsolar(solar)
+    
+    def getanimal(self):
+        '1900 is pig year'
+        return ANIMALS[(self.year - 1900 ) % 12]
 
 def __test():
     cur_solar = START_SOLAR
