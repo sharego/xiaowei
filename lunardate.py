@@ -6,13 +6,17 @@ In Lunar calendar , there is also leap year,
 which means there are 13 months while normal year have 12 .  
 
 Use Examples:
-    switch solar with lunar
+    I. scope:
+        START_LUNAR, START_SOLAR, END_LUNAR, END_SOLAR
+        contains_lunar(lunar)
+        contains_solar(solar)
+    II. switch solar with lunar
         lunar = LunarDate(2013,10,27)
         lunar = LunarDate.fromsolar(date(1900,1,1))
         lunar.tosolar()
-    make lunar data
+    III. make lunar data
         make_data_of_year(normalmonth,leapmonth=0,leaptype=0)
-    check lunar data
+    IV. check lunar data
         show_year_info(year=None)
         
 Declare:
@@ -125,8 +129,7 @@ def parse_year(year):
     return parse_data_days( LUNAR_DATA[ year - LUNAR_DATA_START_YEAE ] )
 
 def year_leap(year):
-    'None if no leap month of the year \
-    or leap month and days'
+    'None if no leap month of the year or leap month and days'
     return parse_data_leap( LUNAR_DATA[ year - LUNAR_DATA_START_YEAE ] )
 
 def days_of_month(year,month):
@@ -217,12 +220,12 @@ class BasicLunarDate(object):
     def __init__(self , year , month , day , leap = 0 ):
         if not all([isinstance(x,int) for x in (year,month,day)]):
             raise TypeError( '%s|%s|%s' % (year,month,day) )
-        assert 0 < year and 0 < month < 13 and 0 < day < 31 , '%4d-%2d-%2d' % (year,month,day,leap)
+        msg = 'wrong data: %4d-%2d-%2d' % (year,month,day)
+        assert year>0 and 0<month<13 and 0<day<31 , msg
         self.year = year
         self.month = month
         self.day = day
         self.leap = bool(leap)
-        
         
     def __eq__(self,oth):
         return repr(self) == repr(oth)
@@ -274,11 +277,14 @@ def contains_solar(solar):
 def contains(lunar):
     'check this lunar calendar contains the lunar date'
     assert isinstance(lunar, START_LUNAR.__class__) , 'type error'
-    if START_LUNAR <= lunar <= END_LUNAR:
-        m = days_of_month(lunar.year, lunar.month)
-        if not lunar.leap or len(m) == 2:
-            return lunar.day <= ( m[1] if lunar.leap else m[0] )
+    month = lunar.month
+    if START_LUNAR <= lunar <= END_LUNAR and 0<month<13:
+        mdays = days_of_month(lunar.year, month)
+        if not lunar.leap or len(mdays) == 2:
+            return 0<lunar.day <= ( mdays[1] if lunar.leap else mdays[0] )
     return False
+
+contains_lunar = contains
 
 def lunar_count_days(lunar):
     'return days from LUNAR_START to lunar'
@@ -354,7 +360,7 @@ def solartolunar(solar):
         month = i + 1 if not leap_month or i < leap_month else i
         if t + v > days: # in this month
             return BasicLunarDate(year, month , days-t+1, leap_month and i == leap_month  )
-        elif t+v == days:
+        elif t+v == days: # the first day of next month
             leap = False
             if leap_month and i+1 == leap_month:
                 leap = True
@@ -363,8 +369,7 @@ def solartolunar(solar):
             return BasicLunarDate(year, month, 1 , leap )
         else:
             t += v
-    assert False, 'solar[%s] to lunar[error]' % (solar,)
-
+    raise Exception( 'solar[%s] to lunar[error]' % (solar,) )
 
 ###############
 # Lunar Date
@@ -382,6 +387,8 @@ class LunarDate(BasicLunarDate):
             y,m,d = args[:3]
             l = args[-1] if len(args) > 3 else 0
         BasicLunarDate.__init__(self,y,m,d,l)
+        if not contains(self):
+            raise Warning('not contain')
     
     @staticmethod
     def fromsolar(solar):
@@ -393,8 +400,10 @@ class LunarDate(BasicLunarDate):
     def next(self):
         return lunar_next(self)
     
-    def prev(self):
-        pass
+    def __add__(self, delta ):
+        'x+y, timedelta'
+        solar = self.tosolar() + delta
+        return LunarDate.fromsolar(solar)
 
 def __test():
     cur_solar = START_SOLAR
