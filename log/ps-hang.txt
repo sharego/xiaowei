@@ -82,6 +82,10 @@ cat /sys/fs/cgroup/memory/mesos/d4406e80-806a-489b-942d-aab42cf59bce/memory.limi
 1357221888
 [root@06i14b003 9b83bffe2a8ce842c8ccfbd401bd056a423eec835c81caa8722ad116c0f2ee3a]# cat /sys/fs/cgroup/memory/mesos/d4406e80-806a-489b-942d-aab42cf59bce/memory.kmem.limit_in_bytes 
 9223372036854771712
+[root@06i14b003 9b83bffe2a8ce842c8ccfbd401bd056a423eec835c81caa8722ad116c0f2ee3a]# cat memory.oom_control
+oom_kill_disable 0
+under_oom 0
+
 
 # 修改容器内存大小限制（失败）
 [root@06i14b003 9b83bffe2a8ce842c8ccfbd401bd056a423eec835c81caa8722ad116c0f2ee3a]# echo 10737418240 > memory.limit_in_bytes
