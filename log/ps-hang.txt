@@ -100,3 +100,8 @@ kube-node-0-kubelet                 10.125.128.69  root    R    demo-k8s-1__kube
 [root@06i14b003 ~]# dcos task exec -task exec -it demo-k8s-1__kube-node-0-kubelet__b2a4b911-befc-4723-b6c5-bd51985f09b1 /bin/sh
 Error while fetching [https://10.172.49.13/slave/9620de1d-3d65-4f36-9e6b-511933774847-S7/api/v1]: HTTP 504: "Gateway Time-out".
 
+# 相关资料
+1. https://rachelbythebay.com/w/2014/10/27/ps/
+2. https://bugzilla.redhat.com/show_bug.cgi?id=1507149#c50
+3. https://github.com/opencontainers/runc/issues/1725
+4. https://github.com/numactl/numactl/blob/master/memhog.c
