@@ -5,7 +5,7 @@ wget -O /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.
 yum makecache fast
 
 # 官方源
-# yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.repo
 
 # 阿里源
 # wget -O /etc/yum.repos.d/docker-ce.repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
