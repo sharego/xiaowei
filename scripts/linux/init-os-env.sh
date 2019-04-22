@@ -38,3 +38,9 @@ cat > /etc/docker/daemon.json << EOF
     "hosts":["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]
 }
 EOF
+
+
+
+# use zsh & oh-my-zsh
+yum -y install zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
