@@ -37,12 +37,19 @@ EOF
 
 wget -O $workdir/build-init.sh https://raw.githubusercontent.com/sharego/xiaowei/master/scripts/dcos/build-docker-inner.sh
 
+# start container
+echo 'now pull images'
+
+sudo docker images --format '{{.Repository}}:{{.Tag}}' | grep '^zookeeper:3.5.5' || sudo docker pull zookeeper:3.5.5
+sudo docker images --format '{{.Repository}}:{{.Tag}}' | grep '^centos:7.6.1810' || sudo docker pull centos:7.6.1810
+
+
 ## start zk
 # sudo docker run -id 
 
 ## start devdcos
 
 
-sudo docker run -id -v $workdir:/root  --name devdcos centos:7.6
+sudo docker run -id -v $workdir:/root -w /root --name devdcos centos:7.6
 
 

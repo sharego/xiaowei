@@ -6,13 +6,13 @@
 
 # ---> prepare build mesos
 grep LIBPROCESS_IP ~/.bashrc
-if [ $? ne 0 ]; then
-
+if [[ $? -ne 0 ]]; then
+echo 'first init'
 # if we want to compile marathon, we can use mvm.sh to compile multiple mesos version this use the $HOME directory
 export mesosversion='1.7.2'
 
 # apache version
-yum install -y tar wget git
+yum install -y tar wget git vim
 
 wget http://repos.fedorapeople.org/repos/dchen/apache-maven/epel-apache-maven.repo -O /etc/yum.repos.d/epel-apache-maven.repo
 yum install -y epel-release
@@ -56,6 +56,7 @@ git clone https://github.com/apache/mesos.git
 git clone https://github.com/mesosphere/marathon.git
 
 else
+  echo 'not first, now update git repos'
   cd ~/mesos && git fetch
   cd ~/marathon && git fetch
 fi
