@@ -45,11 +45,10 @@ sudo docker images --format '{{.Repository}}:{{.Tag}}' | grep '^centos:7.6.1810'
 
 
 ## start zk
-# sudo docker run -id 
+sudo docker run -id -h zookeeper --restart always --name dcoszk zookeeper:3.5.5
 
 ## start devdcos
 
-
-sudo docker run -id -v $workdir:/root -w /root --name devdcos centos:7.6
+sudo docker run -id -v $workdir:/root -w /root --restart always --link dcoszk:zookeeper --name devdcos centos:7.6
 
 
