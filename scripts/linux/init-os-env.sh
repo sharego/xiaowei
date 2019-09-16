@@ -40,9 +40,13 @@ cat > /etc/docker/daemon.json << EOF
     "insecure-registries":["10.172.49.246"],
     "registry-mirrors":["https://registry.docker-cn.com", "https://0ea2p7tt.mirror.aliyuncs.com"],
     "log-driver":"json-file",
-    "hosts":["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"]
+    "hosts":["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"],
+    "containerd": "/run/containerd/containerd.sock"
 }
 EOF
+
+sed -i 's#ExecStart=/usr/bin/dockerd.*#ExecStart=/usr/bin/dockerd#g'  /usr/lib/systemd/system/docker.service
+systemctl daemon-reload
 
 # add docker-compose
 curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
