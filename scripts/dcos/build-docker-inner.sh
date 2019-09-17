@@ -88,7 +88,8 @@ bash mvm.sh $mesosversion bash
 # compile marathon
 
 cd $HOME/marathon
-sbt 'run --master localhost:5050 --zk zk://zookeeper:2181/marathon'
+# should run mesos first
+# sbt 'run --master localhost:5050 --zk zk://zookeeper:2181/marathon'
 
 else
   echo 'not first, now update git repos'
@@ -97,3 +98,9 @@ else
 fi
 
 
+# bash outside of container
+
+# export LD_LIBRARY_PATH=/data/devappdata/.mesos/mesos_versions/1.7.2/lib
+
+# cp *.sh 
+# sed -i ''
