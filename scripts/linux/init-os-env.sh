@@ -1,6 +1,6 @@
 yum install -y yum-utils
 yum -y install epel-release
-yum -y install wget  nmap-ncat psmisc net-tools bind-utils curl python-setuptools python2-pip unzip
+yum -y install wget  nmap-ncat psmisc net-tools bind-utils curl python-setuptools python2-pip unzip python36-devel python36-pip
 wget -O /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod a+x /usr/local/bin/jq
 yum makecache fast
 
@@ -14,7 +14,7 @@ yum-config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.
 # wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 # sed -i 's+download.docker.com+mirrors.tuna.tsinghua.edu.cn/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 
-mkdir ~/.pip /etc/docker
+mkdir ~/.config/pip /etc/docker
 systemctl stop firewalld
 systemctl disable firewalld
 setenforce 0
@@ -26,7 +26,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
-tee ~/.pip/pip.conf << EOF
+tee ~/.config/pip/pip.conf << EOF
 [global]
 index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
