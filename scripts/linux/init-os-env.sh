@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 #author: xiaowei
@@ -20,7 +21,7 @@ fi
 
 sudorun yum install -y yum-utils
 sudorun yum -y install epel-release
-sudorun yum -y install wget  nmap-ncat psmisc net-tools bind-utils curl python-setuptools python2-pip unzip
+sudorun yum -y install wget  nmap-ncat psmisc net-tools bind-utils curl python-setuptools python2-pip unzip python36-devel python36-pip
 sudorun wget -O /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod a+x /usr/local/bin/jq
 sudorun yum makecache fast
 
@@ -34,7 +35,7 @@ sudorun yum-config-manager --add-repo http://download.docker.com/linux/centos/do
 # wget -O /etc/yum.repos.d/docker-ce.repo https://download.docker.com/linux/centos/docker-ce.repo
 # sed -i 's+download.docker.com+mirrors.tuna.tsinghua.edu.cn/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 
-mkdir ~/.pip /etc/docker
+mkdir ~/.config/pip /etc/docker
 sudorun systemctl stop firewalld
 sudorun systemctl disable firewalld
 sudorun setenforce 0
@@ -46,7 +47,7 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
-tee ~/.pip/pip.conf << EOF
+tee ~/.config/pip/pip.conf << EOF
 [global]
 index-url = http://mirrors.aliyun.com/pypi/simple/
 [install]
