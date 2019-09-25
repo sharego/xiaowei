@@ -32,7 +32,7 @@ setenforce 0
 sed  -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
 
-mkdir -p ~/.config/pip /etc/docker
+mkdir -p ~/.config/pip /etc/docker ~/.docker
 
 cat >> /etc/sysct.conf << EOF
 net.ipv4.ip_forward = 1
@@ -56,6 +56,12 @@ cat > /etc/docker/daemon.json << EOF
     "log-driver":"json-file",
     "hosts":["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"],
     "containerd": "/run/containerd/containerd.sock"
+}
+EOF
+
+cat > ~/.docker/config.json << EOF
+{
+        "experimental": "enabled"
 }
 EOF
 

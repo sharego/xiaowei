@@ -39,7 +39,8 @@ sudorun yum-config-manager --add-repo http://download.docker.com/linux/centos/do
 # sed -i 's+download.docker.com+mirrors.tuna.tsinghua.edu.cn/docker-ce+' /etc/yum.repos.d/docker-ce.repo
 
 
-mkdir -p ~/.config/pip /etc/docker
+sudo mkdir /etc/docker
+mkdir -p ~/.config/pip ~/.docker
 
 sudorun systemctl stop firewalld
 sudorun systemctl disable firewalld
@@ -69,6 +70,12 @@ sudorun cat > /etc/docker/daemon.json << EOF
     "log-driver":"json-file",
     "hosts":["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"],
     "containerd": "/run/containerd/containerd.sock"
+}
+EOF
+
+cat > ~/.docker/config.json << EOF
+{
+        "experimental": "enabled"
 }
 EOF
 
