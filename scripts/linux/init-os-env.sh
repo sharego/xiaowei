@@ -1,9 +1,10 @@
-
 #!/bin/bash
 
 #author: xiaowei
 
 # Only Support amd64 arch
+
+# get this: curl -O https://raw.githubusercontent.com/sharego/xiaowei/master/scripts/linux/init-os-env.sh
 
 # configuration
 
