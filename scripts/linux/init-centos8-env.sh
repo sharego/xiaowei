@@ -34,11 +34,14 @@ sed  -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
 mkdir -p ~/.config/pip /etc/docker ~/.docker
 
-cat >> /etc/sysct.conf << EOF
+cat >> /etc/sysctl.conf << EOF
 net.ipv4.ip_forward = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
+#net.bridge.bridge-nf-call-ip6tables = 1
+#net.bridge.bridge-nf-call-iptables = 1
 EOF
+
+# effect now
+sysctl -p || sysctl -a | grep forward
 
 tee ~/.config/pip/pip.conf << EOF
 [global]

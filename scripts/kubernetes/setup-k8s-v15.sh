@@ -19,10 +19,10 @@ yum -y install docker-ce ipvsadm
 cat <<EOF > /etc/sysconfig/modules/ipvs.modules
 #!/bin/bash
 ipvs_modules="ip_vs ip_vs_rr ip_vs_wrr ip_vs_sh nf_conntrack_ipv4"
-for kernel_module in ${ipvs_modules}; do
-    /sbin/modinfo -F filename ${kernel_module} > /dev/null 2>&1
-    if [ 0 -eq 0 ]; then
-        /sbin/modprobe ${kernel_module}
+for kernel_module in \${ipvs_modules}; do
+    /sbin/modinfo -F filename \${kernel_module} > /dev/null 2>&1
+    if [ \$? -eq 0 ]; then
+        /sbin/modprobe \${kernel_module}
     fi
 done
 EOF
@@ -30,7 +30,7 @@ EOF
 chmod 755 /etc/sysconfig/modules/ipvs.modules
 
 # 立即执行加载（上述文件可开机自动加载）
-bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep ipvs
+bash /etc/sysconfig/modules/ipvs.modules && lsmod | grep ip_vs
 
 ## add aliyun kubernetes repo
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -46,7 +46,7 @@ EOF
 yum --disablerepo=\* --enablerepo=kubernetes search --showduplicates kubeadm # 执行导入gpg key
 
 # 安装 1.15.3 版本
-yum install -y --disableexcludes=kubernetes kubeadm-1.15.3 
+yum install -y --disableexcludes=kubernetes kubeadm-1.15.3
 
     ## yum install -y --disableexcludes=kubernetes kubeadm-1.15.3 kubelet-1.15.3 kubectl-1.15.3
 
@@ -79,5 +79,5 @@ EOF
 kubeadm init --kubernetes-version=v1.15.3 --pod-network-cidr=10.112.0.0/14 --image-repository=gcr.azk8s.cn/google-containers --dry-run
 
 # Images Mirrors
-# ali: registry.cn-hangzhou.aliyuncs.com/google_containers 
+# ali: registry.cn-hangzhou.aliyuncs.com/google_containers
 # azure: gcr.azk8s.cn/google-containers

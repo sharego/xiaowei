@@ -48,7 +48,7 @@ sudorun setenforce 0
 
 sudorun sed  -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 
-sudorun cat >> /etc/sysct.conf << EOF
+sudorun cat >> /etc/sysctl.conf << EOF
 net.ipv4.ip_forward = 1
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
