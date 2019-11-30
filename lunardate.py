@@ -4,9 +4,9 @@
 Just like solar calendar , there is leap year,
 which means the february has one more day than normal year.
 In Lunar calendar , there is also leap year,
-which means there are 13 months while normal year have 12 .  
+which means there are 13 months while normal year have 12 .
 
-Use Examples:
+Use Mesosdnss:
     I. scope:
         START_LUNAR, START_SOLAR, END_LUNAR, END_SOLAR
         contains_lunar(lunar)
@@ -19,7 +19,7 @@ Use Examples:
         make_data_of_year(normalmonth,leapmonth=0,leaptype=0)
     IV. check lunar data
         show_year_info(year=None)
-        
+
 Declare:
     these data come from internet(Thanks a lot):
         http://www.ahszjt.gov.cn/Cal.htm (as standard)
@@ -45,36 +45,36 @@ LUNAR_DATA_START_YEAE = 1899
 LUNAR_DATA_STAER_SOLAE = date(1899,2,10)
 
 LUNAR_DATA = [                 0x0ab50, 0x04bd8,    # 1899 - 1900
-    0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950,    # 1905 
-    0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0,    # 1910 
-    0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540,    # 1915 
-    0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970,    # 1920 
-    0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54,    # 1925 
-    0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566,    # 1930 
-    0x0d4a0, 0x0ea50, 0x16a95, 0x05ad0, 0x02b60,    # 1935 
-    0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0,    # 1940 
-    0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0,    # 1945 
-    0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0,    # 1950 
-    0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573,    # 1955 
-    0x052b0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6,    # 1960 
-    0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260,    # 1965 
-    0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0,    # 1970 
-    0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250,    # 1975 
-    0x0d558, 0x0b540, 0x0b6a0, 0x195a6, 0x095b0,    # 1980 
-    0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50,    # 1985 
-    0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5,    # 1990 
-    0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58,    # 1995 
-    0x05ac0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960,    # 2000 
-    0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0,    # 2005 
-    0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950,    # 2010 
-    0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0,    # 2015 
-    0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954,    # 2020 
-    0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6,    # 2025 
-    0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0,    # 2030 
-    0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0,    # 2035 
-    0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0,    # 2040 
-    0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0,    # 2045 
-    0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63,    # 2050 
+    0x04ae0, 0x0a570, 0x054d5, 0x0d260, 0x0d950,    # 1905
+    0x16554, 0x056a0, 0x09ad0, 0x055d2, 0x04ae0,    # 1910
+    0x0a5b6, 0x0a4d0, 0x0d250, 0x1d255, 0x0b540,    # 1915
+    0x0d6a0, 0x0ada2, 0x095b0, 0x14977, 0x04970,    # 1920
+    0x0a4b0, 0x0b4b5, 0x06a50, 0x06d40, 0x1ab54,    # 1925
+    0x02b60, 0x09570, 0x052f2, 0x04970, 0x06566,    # 1930
+    0x0d4a0, 0x0ea50, 0x16a95, 0x05ad0, 0x02b60,    # 1935
+    0x186e3, 0x092e0, 0x1c8d7, 0x0c950, 0x0d4a0,    # 1940
+    0x1d8a6, 0x0b550, 0x056a0, 0x1a5b4, 0x025d0,    # 1945
+    0x092d0, 0x0d2b2, 0x0a950, 0x0b557, 0x06ca0,    # 1950
+    0x0b550, 0x15355, 0x04da0, 0x0a5b0, 0x14573,    # 1955
+    0x052b0, 0x0a9a8, 0x0e950, 0x06aa0, 0x0aea6,    # 1960
+    0x0ab50, 0x04b60, 0x0aae4, 0x0a570, 0x05260,    # 1965
+    0x0f263, 0x0d950, 0x05b57, 0x056a0, 0x096d0,    # 1970
+    0x04dd5, 0x04ad0, 0x0a4d0, 0x0d4d4, 0x0d250,    # 1975
+    0x0d558, 0x0b540, 0x0b6a0, 0x195a6, 0x095b0,    # 1980
+    0x049b0, 0x0a974, 0x0a4b0, 0x0b27a, 0x06a50,    # 1985
+    0x06d40, 0x0af46, 0x0ab60, 0x09570, 0x04af5,    # 1990
+    0x04970, 0x064b0, 0x074a3, 0x0ea50, 0x06b58,    # 1995
+    0x05ac0, 0x0ab60, 0x096d5, 0x092e0, 0x0c960,    # 2000
+    0x0d954, 0x0d4a0, 0x0da50, 0x07552, 0x056a0,    # 2005
+    0x0abb7, 0x025d0, 0x092d0, 0x0cab5, 0x0a950,    # 2010
+    0x0b4a0, 0x0baa4, 0x0ad50, 0x055d9, 0x04ba0,    # 2015
+    0x0a5b0, 0x15176, 0x052b0, 0x0a930, 0x07954,    # 2020
+    0x06aa0, 0x0ad50, 0x05b52, 0x04b60, 0x0a6e6,    # 2025
+    0x0a4e0, 0x0d260, 0x0ea65, 0x0d530, 0x05aa0,    # 2030
+    0x076a3, 0x096d0, 0x04afb, 0x04ad0, 0x0a4d0,    # 2035
+    0x1d0b6, 0x0d250, 0x0d520, 0x0dd45, 0x0b5a0,    # 2040
+    0x056d0, 0x055b2, 0x049b0, 0x0a577, 0x0a4b0,    # 2045
+    0x0aa50, 0x1b255, 0x06d20, 0x0ada0, 0x14b63,    # 2050
     0x09370, 0x049f8, 0x04970, 0x064b0, 0x168a6,    # 2055
     0x0ea50, 0x06aa0, 0x1a6c4, 0x0aae0, 0x092e0,    # 2060
     0x0d2e3, 0x0c960, 0x0d557, 0x0d4a0, 0x0da50,    # 2065
@@ -94,7 +94,7 @@ def make_data_of_year(normalmonth,leapmonth=0,leaptype=0):
         else it is a small month , there are 29 days
     @param leapmonth: int, the leap month. 0 means no leap month
     @param leaptype: bool, the leap month type (big or small)
-    
+
     data format: b bbbb bbbb bbbb bbbb ( this format is from internet )
            first bit : the leap month type , big or small
            then 12 bits: each months type, big or small
@@ -120,7 +120,7 @@ def parse_data_days( v ):
         return a list contains leap month days, each month days , leap month
     '''
     leap_moth , leap_days = parse_data_leap( v )
-    month = (v & 0xfff0 ) >> 4 
+    month = (v & 0xfff0 ) >> 4
     r = [ leap_days ]
     r.extend( 29 + bool( month & (1<<i))  for i in range(11,-1,-1) )
     r.append( leap_moth )
@@ -154,7 +154,7 @@ def lastdate_of_year(year):
     v = LUNAR_DATA[ year - START_LUNAR.year ]
     return BasicLunarDate( year, 12, 30 if v & 0x10 else 29,
                       1 if v & 0xff == 12 else 0  )
-    
+
 def lastdate_of_month(year,month):
     days = days_of_month(year,month)
     return BasicLunarDate( year, month , days[-1], len(days) == 2 )
@@ -229,10 +229,10 @@ class BasicLunarDate(object):
         self.month = month
         self.day = day
         self.leap = bool(leap)
-        
+
     def __eq__(self,oth):
         return repr(self) == repr(oth)
-        
+
     def __lt__(self,oth):
 #        assert isinstance(oth, self.__class__ ) , 'type error'
         sym = self.year * 100 + self.month
@@ -242,15 +242,15 @@ class BasicLunarDate(object):
         if self.leap != oth.leap:
             return not self.leap
         return self.day < oth.day
-    
+
     def __str__(self):
         return LUNAR_NAME+''.join([format_year(self.year),
                     format_month(self.month,self.leap),
                     format_day(self.day) ] )
-        
+
     def __repr__(self):
         return 'BasicLunarDate(%d,%d,%d,%d)' % tuple(self.data())
-        
+
     def data(self):
         return [self.year,self.month,self.day,bool(self.leap)]
 
@@ -276,7 +276,7 @@ def contains_solar(solar):
     'check this lunar calendar contains the solar date'
     d = solar if isinstance(solar,date) else solar.date()
     return START_SOLAR <= d <= END_SOLAR
-    
+
 def contains(lunar):
     'check this lunar calendar contains the lunar date'
     assert isinstance(lunar, START_LUNAR.__class__) , 'type error'
@@ -303,7 +303,7 @@ def lunar_count_days(lunar):
         if lunar.month > leap_month or \
         ( lunar.month == leap_month and lunar.leap ):
             end_index = lunar.month
-            
+
     days += sum( days_of_months[:end_index] ) + lunar.day - 1
     return days
 
@@ -334,7 +334,7 @@ def lunar_next(lunar):
                 return BasicLunarDate(year,month,day+1,0)
             else:
                 return BasicLunarDate(year,month,1,1)
-        
+
 def lunartosolar(lunar):
     'switch lunar date to solar date'
     return START_SOLAR + timedelta( lunar_count_days(lunar) )
@@ -355,7 +355,7 @@ def solartolunar(solar):
             cur_days += DAYS_OF_YEAR[solar.year]
     elif lunar_days == days:
         return BasicLunarDate(solar.year, 1 , 1)
-    
+
     days_of_months = month_days_of_year(year)
     leap_month, _ = year_leap(year)
     t = cur_days
@@ -379,7 +379,7 @@ def solartolunar(solar):
 ###############
 
 class LunarDate(BasicLunarDate):
-    
+
     def __init__(self,*args):
         'year, month, day, leap=0'
         if len(args) == 1:
@@ -392,26 +392,26 @@ class LunarDate(BasicLunarDate):
         BasicLunarDate.__init__(self,y,m,d,l)
         if not contains(self):
             raise Warning('not contain')
-    
+
     @staticmethod
     def fromsolar(solar):
         return LunarDate( solartolunar(solar) )
-    
+
     @staticmethod
     def today():
         return LunarDate.fromsolar( date.today() )
-    
+
     def tosolar(self):
         return lunartosolar(self)
-    
+
     def next(self):
         return lunar_next(self)
-    
+
     def __add__(self, delta ):
         'x+y, timedelta'
         solar = self.tosolar() + delta
         return LunarDate.fromsolar(solar)
-    
+
     def getanimal(self):
         '1900 is pig year'
         return ANIMALS[(self.year - 1900 ) % 12]
@@ -422,20 +422,20 @@ def __test():
     oneday = timedelta(1)
     pre_info = None
     while cur_lunar < END_LUNAR:
-        
+
         lunar = solartolunar(cur_solar)
         solar = lunartosolar(cur_lunar)
         solar2 = lunartosolar(lunar) if cur_lunar != lunar else solar
-        
+
         info_fmt = "           real solar[%s]\n" +\
                    "solar from real lunar[%s]\n" +\
                    "solar from cal  lunar[%s]\n" +\
                    "           real lunar[%s]\n" +\
                    "lunar from real solar[%s]"
         cur_info = info_fmt % (cur_solar, solar, solar2, cur_lunar, lunar)
-        
+
         check = cur_solar == solar and solar == solar2 and cur_lunar == lunar
-        
+
         if not check:
             print(pre_info)
             print(cur_info)
@@ -444,7 +444,7 @@ def __test():
         cur_solar += oneday
         cur_lunar = lunar_next( cur_lunar )
         pre_info  = cur_info
-    
+
 
 if __name__ == '__main__':
 #    print( make_data_of_year([0,1,0,0,5,0,7,8,0,10,11,0],3,1) )

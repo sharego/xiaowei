@@ -2,6 +2,7 @@
 
 #author: xiaowei
 
+# Ref: https://v1-15.docs.kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm
 
 ## close os swap
 
@@ -46,38 +47,62 @@ EOF
 yum --disablerepo=\* --enablerepo=kubernetes search --showduplicates kubeadm # 执行导入gpg key
 
 # 安装 1.15.3 版本
-yum install -y --disableexcludes=kubernetes kubeadm-1.15.3
+# yum install -y --disableexcludes=kubernetes kubeadm-1.15.3
 
-    ## yum install -y --disableexcludes=kubernetes kubeadm-1.15.3 kubelet-1.15.3 kubectl-1.15.3
+export k8ver=1.15.3
+yum install -y --disableexcludes=kubernetes kubeadm-$k8ver kubelet-$k8ver kubectl-$k8ver
 
 ## configuration file
 
 ### according https://kubernetes.io/docs/setup/best-practices/cluster-large/
 ### most of 150000 total pods on 5000 nodes
 
-cat <<EOF > kubeadm-init.yaml
-apiVersion: kubeadm.k8s.io/v1alpha2
-kind: MasterConfiguration
-kubernetesVersion: v1.15.3 # kubernetes的版本
+cat <<EOF > kubeadmin-init.yaml
+apiVersion: kubeadm.k8s.io/v1beta2
+kind: ClusterConfiguration
+kubernetesVersion: v1.15.3
+clusterName: k8s-xiaowei
+dns:
+  type: CoreDNS
 networking:
-  podSubnet: 10.112.0.0/14 # pod网络的网段
-kubeProxy:
-  config:
-    mode: ipvs   #启用IPVS模式
-featureGates:
-  CoreDNS: true
+  podSubnet: 192.168.0.0/16 # pod网络的网段,cluser-cidr
+  # serviceSubnet: 10.116.0.0/14 # service 网络网段 默认 10.96.0.0/12
 imageRepository: gcr.azk8s.cn/google-containers # image的仓库源
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+mode: "ipvs"
 EOF
 
 # 只拉取镜像
 # kubeadm config images pull --config kubeadm-init.yaml
 # 列举镜像列表
-# kubeadm config images list
+# kubeadm config --kubernetes-version=v$k8ver --image-repository=gcr.azk8s.cn/google-containers images list
 
 ## use command line configuration
 ### service-cidr 默认: 10.96.0.0/12
-kubeadm init --kubernetes-version=v1.15.3 --pod-network-cidr=10.112.0.0/14 --image-repository=gcr.azk8s.cn/google-containers --dry-run
+### 根据命令行配置初始化集群
+kubeadm init --kubernetes-version=v$k8ver --pod-network-cidr=10.112.0.0/14 --image-repository=gcr.azk8s.cn/google-containers --dry-run
+### 根据配置文件初始化集群
+kubeadm init --config kubeadmin-init.yaml --dry-run
 
 # Images Mirrors
 # ali: registry.cn-hangzhou.aliyuncs.com/google_containers
 # azure: gcr.azk8s.cn/google-containers
+
+# 如果发现kube-proxy 没有使用LVS，可以采用如下方式修改为LVS
+
+```bash
+# 修改 kube-proxy 配置文件, 将 config.conf 中mode值改为 ipvs
+kubectl edit cm kube-proxy -n kube-system
+
+# 删除proxy pod，自动拉取新的
+kubectl get pod -n kube-system -o name -l k8s-app=kube-proxy | xargs -n1 kubectl delete -n kube-system
+
+```
+
+# 部署 pod 网络 addon 采用 calico
+```bash
+# 默认 CALICO_IPV4POOL_CIDR 为 192.168.0.0/16 需要k8s集群的 cluster-cidr为此ippool
+kubectl apply -f https://docs.projectcalico.org/v3.8/manifests/calico.yaml
+```

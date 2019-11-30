@@ -74,13 +74,13 @@ Transfer-Encoding: chunked
    "type":"HEARTBEAT"
 }
 <more events>
-``` 
+```
 
 # 3 Protocol Buffer
 
 使用Protocol Buffer和使用JSON最大的区别，JSON为文本协议（类似JSON的二进制协议为[BSON](http://bsonspec.org/)，MongoDB原生支持该格式）且不需要Schema描述数据格式，而Protobuf为二进制协议，所有消息需要有Schema描述才能进行编解码。
 >附：不需要Schema描述的协议通常又称为自解释协议或格式，如[MessagePack](https://msgpack.org/)等 ♡这个是我比较喜欢的格式，跨语言传输性能很好♡；采用Schema使用的著名格式有Facebook Thrift*， Apache Avro等；为了更安全的进行JSON数据的校验，JSON也Schema工具加持：[JSON Schema
-](http://json-schema.org/) 
+](http://json-schema.org/)
 
 
 也就是在使用Protobuf时，我们需要先写一个Schema对我们的数据格式进行描述，如:
@@ -210,7 +210,7 @@ func main() {
 		}
 	}()
 
-	buf := bufio.NewReaderSize(res.Body, 104857600) // 100MiB Just a Example
+	buf := bufio.NewReaderSize(res.Body, 104857600) // 100MiB Just a Mesosdns
 
 	recordQueue := make(chan []byte, 10)
 
@@ -359,7 +359,7 @@ import org.apache.mesos.v1.master.Protos.Response.GetState;
 
 /**
  * MESOS Event Demo With PROTOBUF, New HttpClient API In Java11
- * 
+ *
  * @author xiaowei
  *
  */
@@ -525,7 +525,7 @@ public class EventDemo {
 ```
 然后编译执行:
 ```bash
-# compile 
+# compile
 find org -type f -name "*.java" -exec javac -cp .:protobuf-java-3.7.1.jar -d `pwd`/bin {} \;
 javac -cp .:protobuf-java-3.7.1.jar:bin -d bin EventDemo.java
 # run
@@ -693,7 +693,7 @@ if __name__ == '__main__':
 
 
 ## 5 后记
-至此，Mesos Event的读取和开源Protobuf的在上述编程语言的基本使用，有了解。对于Event长链接的正确处理，如异常断开重连、数据异常检测、等待超时、数据的流式处理、链接断开导致缓存溢出等在生产系统中都需要考虑并处理，比如上面的Example都没有对HTTP Status Code做检测。
+至此，Mesos Event的读取和开源Protobuf的在上述编程语言的基本使用，有了解。对于Event长链接的正确处理，如异常断开重连、数据异常检测、等待超时、数据的流式处理、链接断开导致缓存溢出等在生产系统中都需要考虑并处理，比如上面的Mesosdns都没有对HTTP Status Code做检测。
 
 # Ref
 [Apache Mesos](https://mesos.apache.org/documentation/latest)
