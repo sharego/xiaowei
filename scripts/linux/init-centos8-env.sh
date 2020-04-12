@@ -74,6 +74,15 @@ wget -O /usr/local/bin/docker-compose "https://github.com/docker/compose/release
 
 chmod a+x /usr/local/bin/docker-compose
 
+
+cat >> ~/.bash_profile << EOF
+export HOSTIP=\$(/usr/sbin/ip addr show | /usr/bin/grep "inet 192.*brd" | /usr/bin/grep -o "inet 192[^ ]*" | /usr/bin/grep -o "192[^/]*")
+EOF
+
+# 内核选择时间 从5seconds 改为 3s
+
+sed -i 's/set timeout=5/set timeout=3/' /boot/grub2/grub.cfg
+
 # 个人电脑多保存一些 history
 sed -i 's/HISTSIZE=1000/HISTSIZE=50000/g' /etc/profile
 
@@ -85,6 +94,11 @@ sed -i 's/.*ClientAliveCountMax.*/ClientAliveCountMax 120/' /etc/ssh/sshd_config
 # use zsh & oh-my-zsh (oh-my-zsh need git)
 yum -y install zsh git
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+cat >> ~/.zshrc << EOF
+export HOSTIP=\$(/usr/sbin/ip addr show | /usr/bin/grep "inet 192.*brd" | /usr/bin/grep -o "inet 192[^ ]*" | /usr/bin/grep -o "192[^/]*")
+export PROMPT='%n@%M '\$HOSTIP' %{$fg[$user_color]%}$(_fishy_collapsed_wd)%{$reset_color%}%(!.#.>) '
+EOF
 
 
 ## https://linuxconfig.org/how-to-install-docker-in-rhel-8

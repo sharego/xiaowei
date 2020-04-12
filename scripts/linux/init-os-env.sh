@@ -108,10 +108,15 @@ sudorun chmod a+x /usr/local/bin/docker-compose
 # 个人电脑多保存一些 history
 sudorun sed -i 's/HISTSIZE=1000/HISTSIZE=50000/g' /etc/profile
 
+sudorun sed -i 's/set timeout=5/set timeout=3/' /boot/grub2/grub.cfg
 
 # 个人电脑ssh 存活120分钟, 即2个小时
 sudorun sed -i 's/.*ClientAliveInterval.*/ClientAliveInterval 60/' /etc/ssh/sshd_config
 sudorun sed -i 's/.*ClientAliveCountMax.*/ClientAliveCountMax 120/' /etc/ssh/sshd_config
+
+cat >> ~/.bash_profile << EOF
+export HOSTIP=\$(/usr/sbin/ip addr show | /usr/bin/grep "inet 192.*brd" | /usr/bin/grep -o "inet 192[^ ]*" | /usr/bin/grep -o "192[^/]*")
+EOF
 
 # 看使用习惯, 可以不安装, 安装后执行uninstall_oh_my_zsh 卸载
 # use zsh & oh-my-zsh (oh-my-zsh need git)
@@ -127,7 +132,12 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 # configure zsh, add plugins
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-sed -i '/^plugins/s/)$/zsh-syntax-highlighting)/' ~/.zshrc
+sed -i '/^plugins/s/)$/ zsh-syntax-highlighting)/' ~/.zshrc
+
+cat >> ~/.zshrc << EOF
+export HOSTIP=\$(/usr/sbin/ip addr show | /usr/bin/grep "inet 192.*brd" | /usr/bin/grep -o "inet 192[^ ]*" | /usr/bin/grep -o "192[^/]*")
+export PROMPT='%n@%M '\$HOSTIP' %{$fg[$user_color]%}$(_fishy_collapsed_wd)%{$reset_color%}%(!.#.>) '
+EOF
 
 # configure zsh, add alias
 echo "alias ls='ls --color=auto'" >> ~/.zshrc
