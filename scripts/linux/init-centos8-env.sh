@@ -8,9 +8,12 @@
 
 # configuration
 
+test -f /usr/share/zoneinfo/Asia/Shanghai && rm -f /etc/localtime 2>/dev/null
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
 yum install -y yum-utils
 yum -y install epel-release
-yum -y install wget bash-completion nmap-ncat psmisc net-tools bind-utils curl
+yum -y install wget bash-completion nmap-ncat psmisc net-tools bind-utils curl iproute-tc
 
 wget -O /usr/local/bin/jq https://github.com/stedolan/jq/releases/download/jq-1.6/jq-linux64 && chmod a+x /usr/local/bin/jq
 
@@ -28,17 +31,20 @@ dnf config-manager --add-repo http://download.docker.com/linux/centos/docker-ce.
 
 
 setenforce 0
-
-sed  -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+systemctl disable --now firewalld
 
 
 mkdir -p ~/.config/pip /etc/docker ~/.docker
 
-cat >> /etc/sysct.conf << EOF
+cat >> /etc/sysctl.conf << EOF
 net.ipv4.ip_forward = 1
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
+#net.bridge.bridge-nf-call-ip6tables = 1
+#net.bridge.bridge-nf-call-iptables = 1
 EOF
+
+# effect now
+sysctl -p || sysctl -a | grep forward
 
 tee ~/.config/pip/pip.conf << EOF
 [global]
@@ -47,6 +53,7 @@ index-url = http://mirrors.aliyun.com/pypi/simple/
 trusted-host=mirrors.aliyun.com
 EOF
 
+# 默认cgroup driver是Cgroup Driver: cgroupfs
 cat > /etc/docker/daemon.json << EOF
 {
     "storage-driver": "overlay2",
@@ -55,7 +62,8 @@ cat > /etc/docker/daemon.json << EOF
     "registry-mirrors":["https://registry.docker-cn.com", "https://0ea2p7tt.mirror.aliyuncs.com"],
     "log-driver":"json-file",
     "hosts":["tcp://0.0.0.0:2375", "unix:///var/run/docker.sock"],
-    "containerd": "/run/containerd/containerd.sock"
+    "containerd": "/run/containerd/containerd.sock",
+    "exec-opts": ["native.cgroupdriver=systemd"]
 }
 EOF
 
@@ -102,3 +110,5 @@ EOF
 
 
 ## https://linuxconfig.org/how-to-install-docker-in-rhel-8
+yum install docker-ce docker-ce-cli containerd.io --nobest
+# this will install docker-ce 18.09.1
