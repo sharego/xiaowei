@@ -1,5 +1,6 @@
 # use `devmapper`
 
+
 ```bash
 # 安装 dmsetup /usr/sbin/dmsetup
 yum -y install device-mapper
@@ -32,7 +33,12 @@ cp containerd.service /etc/systemd/system
 mkdir /etc/containerd
 # 准备containerd默认配置文件
 containerd config default > /etc/containerd/config.toml
+```
 
+
+## loop-devicemapper
+
+```bash
 # 准备devmapper设备
 ## 此处使用loop文件，必须加载在ext4文件系统之上
 ## 使用vg创建一个lv，格式化为ext4
@@ -89,7 +95,29 @@ EOF
 
 # 以上文件执行后, 调用 dmsetup ls 可以看到创建的 containerd-pool
 
+```
 
+
+## direct-lvm devicemapper
+
+```bash
+# 参考 docker devicemapper direct-lvm
+pvcreate /dev/sdb
+vgcreate containerd /dev/sdb
+lvcreate --wipesignatures y -n thinpool containerd -l 95%VG
+lvcreate --wipesignatures y -n thinpoolmeta containerd -l 1%VG
+lvconvert -y --zero n -c 512K --thinpool containerd/thinpool --poolmetadata containerd/thinpoolmeta
+vi /etc/lvm/profile/containerd-thinpool.profile
+
+activation { thin_pool_autoextend_threshold=80 thin_pool_autoextend_percent=20 }
+
+lvchange --metadataprofile containerd-thinpool containerd/thinpool
+
+dmsetup ls
+```
+
+
+```bash
 # 修改containerd的配置文件 /etc/containerd/config.toml
 # 加入plugins.devmapper配置，并修改snapshotter = "overlayfs" 为 snapshotter = "devmapper"
 
