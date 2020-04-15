@@ -47,6 +47,19 @@ curl -qsL -X GET -H "Authorization: Bearer $token"  https://registry.hub.docker.
 ```
 Token API 参考[^1], Registry API参考[^2]
 
+可以看到与ctr下载的一致，如下图:
+```bash
+root@10-255-0-179 /v/l/c/f# ctr image pull --snapshotter overlayfs docker-hub.didiyun.com/library/alpine:latest
+docker-hub.didiyun.com/library/alpine:latest:                                     resolved       |++++++++++++++++++++++++++++++++++++++|
+index-sha256:b276d875eeed9c7d3f1cfa7edb06b22ed22b14219a7d67c52c56612330348239:    done           |++++++++++++++++++++++++++++++++++++++|
+manifest-sha256:cb8a924afdf0229ef7515d9e5b3024e23b3eb03ddbba287f4a19c6ac90b8d221: done           |++++++++++++++++++++++++++++++++++++++|
+layer-sha256:aad63a9339440e7c3e1fff2b988991b9bfb81280042fa7f39a5e327023056819:    done           |++++++++++++++++++++++++++++++++++++++|
+config-sha256:a187dde48cd289ac374ad8539930628314bc581a481cdb41409c9289419ddb72:   done           |++++++++++++++++++++++++++++++++++++++|
+elapsed: 2.9 s                                                                    total:   0.0 B (0.0 B/s)
+unpacking linux/amd64 sha256:b276d875eeed9c7d3f1cfa7edb06b22ed22b14219a7d67c52c56612330348239...
+done
+```
+
 # 2. Containerd 镜像存储
 
 ## 2.1. 准备数据库查看工具
