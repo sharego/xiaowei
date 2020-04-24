@@ -14,6 +14,7 @@ mesos 采用 google glog（cpp）库进行日志管理，代码中日志输出�
 * 1 WARNING
 * 2 ERROR
 * 3 FATAL
+
 参见代码： https://github.com/google/glog/blob/3267f3e1a8dd629922dbe28c09a5fa5e60de5a84/src/windows/glog/log_severity.h#L51
 
 在Mesos中这个日志级别默认由进程启动命令行参数logging_level控制，仅支持INFO、WARNING、ERROR三个级别的配置，详见代码： https://github.com/apache/mesos/blob/25941b00377e13a5e6040819184a46bb29390661/src/logging/logging.cpp#L409
