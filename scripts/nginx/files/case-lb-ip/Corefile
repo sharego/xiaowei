@@ -1,0 +1,5 @@
+xw.local:53 {
+	hosts xw.local.hosts
+	log
+	debug
+}
