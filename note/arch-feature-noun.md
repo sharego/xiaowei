@@ -48,5 +48,17 @@
 
 7.  Elastic -- 弹性
 
+8.  Available -- 可用性
+
+9.  Auditable -- 可审计
+
+10.  Observable  -- 可测量
+
+11.  Schedulable
+
+12.  Upgradeable
+
+13.  Measurable
+
 
 
